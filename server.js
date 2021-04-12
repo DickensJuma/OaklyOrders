@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const mealRouter = require("./models/meal.js")
 
 const app = express();
 
