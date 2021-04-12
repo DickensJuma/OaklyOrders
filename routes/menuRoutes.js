@@ -15,4 +15,15 @@ router.post("/menu", async (request, response) => {
     }
   });
 
+  //list GET menu
+app.get("/menu", async (request, response) => {
+  const menu = await menuModel.find({});
+
+  try {
+    response.status(200).send({status:"201",message:"OK",data: menu});
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 module.exports = router;
