@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const mealRouter = require("./models/meal.js")
+const mealRouter = require("./routes/mealRoutes")
 
 const app = express();
 
@@ -14,8 +14,10 @@ mongoose.connect(
     }
   );
   
+app.use(mealRouter);
 
+const PORT = 3000 || process.env.PORT;
 
-app.listen(3000, () => {
-    console.log("Server is running...");
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`);
   });
