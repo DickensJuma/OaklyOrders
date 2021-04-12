@@ -1,11 +1,11 @@
 const express = require("express");
-const mealModel = require("../models/meal");
-const app = express();
+const menuModel = require("../models/menu");
+var router = express.Router()
 
 
 //create POST meal
-app.post("/menu", async (request, response) => {
-    const menu = new mealModel(request.body);
+router.post("/menu", async (request, response) => {
+    const menu = new menuModel(request.body);
   
     try {
       await menu.save();
@@ -15,4 +15,4 @@ app.post("/menu", async (request, response) => {
     }
   });
 
-module.exports = app;
+module.exports = router;

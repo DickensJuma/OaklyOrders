@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const mealRouter = require("./routes/mealRoutes")
+const menuRouter = require("./routes/menuRoutes")
 
 const app = express();
 
@@ -14,7 +14,7 @@ mongoose.connect(
     }
   );
   
-app.use(mealRouter);
+app.use(menuRouter);
 
 const PORT = 3000 || process.env.PORT;
 
