@@ -47,9 +47,20 @@ router.get("/api/menu", async (request, response) => {
     response.status(500).send(error);
   }
 });
+//GET menu by id
+router.get("/api/menu/:id", async (request, response) => {
+  const menu = await menuModel.findById(request.params.id);
+  console.log(menu)
+  try {
+    response.send(menu);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 
 //PATCH menu by id
-router.patch("/api/menu/:id", async (request, response) => {
+router.put("/api/menu/:id", async (request, response) => {
   try {
     await menuModel.findByIdAndUpdate(request.params.id, request.body);
     await menuModel.save();

@@ -9,6 +9,8 @@ cd OaklyOrders
 npm install
 npm start
 
+npm test
+
 # create a .env and replace the cred with real ones
 ```
 
