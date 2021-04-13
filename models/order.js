@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const OrderSchema = new mongoose.Schema({
   menuItemId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Menu'
+        ref: 'Meal'
   },
   userPhoneNumber: {
     type: Number,

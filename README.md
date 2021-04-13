@@ -17,11 +17,11 @@ npm test
 
 Open [http://localhost:3000](http://localhost:3000) to test the server in the browser or Postman. 
 
-# SMS API
+## SMS API
  [`Africanstalking SMS`](https://africastalking.com/sms)
 
 
-# Database
+## Database
 [`MongoDB Atlas`](https://www.mongodb.com/cloud/atlas)
 
 # menu

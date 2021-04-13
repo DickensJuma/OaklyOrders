@@ -14,7 +14,7 @@ describe('order API', () => {
   describe("Get /api/order",() =>{
   it("it should GET all order items", (done)=>{
      chai.request(server)
-     .get("/api/orders")
+     .get("/orders")
      .end((err, response) => {
          response.should.have.status(200);
          response.body.should.have.property('data');
@@ -36,7 +36,7 @@ describe('order API', () => {
             menuItemId:"6074a9a05ff00a7066009513"
         }
            chai.request(server)
-           .post("/api/order/")
+           .post("/order/")
            .send(order)
            .end((err, response) => {
              response.should.have.status(200);

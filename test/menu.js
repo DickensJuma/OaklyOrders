@@ -14,7 +14,7 @@ describe('Menu API', () => {
   describe("Get /api/menu",() =>{
   it("it should GET all menu items", (done)=>{
      chai.request(server)
-     .get("/api/menu")
+     .get("/menu")
      .end((err, response) => {
          response.should.have.status(200);
          response.body.should.have.property('data');
@@ -32,7 +32,7 @@ describe('Menu API', () => {
         let menu = new menuModel({ name: "Dengu wali", price:300 });
         menu.save((err, menu) => {
             chai.request(server)
-          .get('/api/menu/' + menu.id)
+          .get('/menu/' + menu.id)
           .send(menu)
           .end((err, res) => {
                 res.should.have.status(200);
@@ -57,7 +57,7 @@ describe('Menu API', () => {
             price: 50
           }
            chai.request(server)
-           .post("/api/menu/")
+           .post("/menu/")
            .send(menu)
            .end((err, response) => {
              response.should.have.status(200);

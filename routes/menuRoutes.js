@@ -26,7 +26,7 @@ router.get("/", async (request, response) => {
 });
 
 //create POST meal
-router.post("/api/menu", async (request, response) => {
+router.post("/menu", async (request, response) => {
   const menu = new menuModel(request.body);
 
   try {
@@ -38,7 +38,7 @@ router.post("/api/menu", async (request, response) => {
 });
 
 //list GET menu
-router.get("/api/menu", async (request, response) => {
+router.get("/menu", async (request, response) => {
   const menu = await menuModel.find({});
 
   try {
@@ -48,42 +48,43 @@ router.get("/api/menu", async (request, response) => {
   }
 });
 //GET menu by id
-router.get("/api/menu/:id", async (request, response) => {
+router.get("/menu/:id", async (request, response) => {
   const menu = await menuModel.findById(request.params.id);
   console.log(menu)
   try {
-    response.send(menu);
+    response.status(200).send(menu);
   } catch (error) {
     response.status(500).send(error);
   }
 });
 
 
-//PATCH menu by id
-router.put("/api/menu/:id", async (request, response) => {
+//PUT Update menu by id
+router.put("/menu/:id", async (request, response) => {
+
   try {
-    await menuModel.findByIdAndUpdate(request.params.id, request.body);
-    await menuModel.save();
-    response.send(menu);
+    const menu = await menuModel.findByIdAndUpdate(request.params.id, request.body);
+    await menu.save();
+    response.status(200).send(menu);
   } catch (error) {
     response.status(500).send(error);
   }
 });
 
 //DELETE menu using id
-router.delete("/api/menu/:id", async (request, response) => {
+router.delete("/menu/:id", async (request, response) => {
   try {
     const menu = await menuModel.findByIdAndDelete(request.params.id);
 
     if (!menu) response.status(404).send("No menu item found");
-    response.status(200).send();
+    response.status(200).send("Meal Deleted successfully!!!");
   } catch (error) {
     response.status(500).send(error);
   }
 });
 
 //create POST meal
-router.post("/api/order", async (request, response) => {
+router.post("/order", async (request, response) => {
   const { menuItemId, userPhoneNumber } = request.body;
   const order = new orderModel(request.body);
   const menu = await menuModel.findById(menuItemId).populate("order");
@@ -114,7 +115,7 @@ router.post("/api/order", async (request, response) => {
 });
 
 //list GET order
-router.get("/api/orders", async (request, response) => {
+router.get("/orders", async (request, response) => {
   const orders = await orderModel.find({});
 
   try {
@@ -125,7 +126,7 @@ router.get("/api/orders", async (request, response) => {
 });
 
 //find order on the menu
-router.get("/api/order/:id", async (request, response) => {
+router.get("/order/:id", async (request, response) => {
   const { id } = request.params;
   const order = await orderModel.findById(id).populate("order");
   console.log(order);
@@ -137,14 +138,14 @@ router.get("/api/order/:id", async (request, response) => {
 });
 
 // Incomming-message report route
-router.post("/api/incoming-messages", (request, response) => {
+router.post("/incoming-messages", (request, response) => {
   const data = request.body;
   console.log(`Received message: \n ${data}`);
   response.sendStatus(200);
 });
 
 //  Delivery reports route
-router.post("/api/delivery-reports", (request, response) => {
+router.post("/delivery-reports", (request, response) => {
   const data = request.body;
   console.log(`Received report: \n ${data}`);
   response.sendStatus(200);

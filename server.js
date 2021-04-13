@@ -20,7 +20,7 @@ mongoose.connect(
     }
   );
   
-app.use(menuRouter);
+app.use('/api/',menuRouter);
 
 
 
