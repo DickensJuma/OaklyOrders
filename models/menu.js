@@ -13,7 +13,7 @@ const MealSchema = new mongoose.Schema({
     validate(value) {
       if (value < 0) throw new Error("Negative price aren't real.");
     },
-  },
+  }
 });
 
 const Meal = mongoose.model("Meal", MealSchema);
