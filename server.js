@@ -1,13 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const morgan = require('morgan')
 const menuRouter = require("./routes/menuRoutes");
+require('dotenv').config()
 
 const app = express();
 
-
+app.use(morgan('tiny'))
 app.use(express.json());
 mongoose.connect(
-    "mongodb+srv://dickens:ugPUWKvrnAuiTs8@cluster0.yeyah.mongodb.net/Oaklydb?retryWrites=true&w=majority",
+  process.env.MONGO_URI,
     {
       useNewUrlParser: true,
       useFindAndModify: false,
