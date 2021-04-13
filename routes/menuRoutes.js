@@ -2,6 +2,16 @@ const express = require("express");
 const menuModel = require("../models/menu");
 const orderModel = require("../models/order");
 var router = express.Router();
+const credentials = {
+  apiKey: '251e50d776452795fe2930c2089e0e3f6bf222165c0d3f89d058fc88b266d236', 
+  username: 'sandbox'     // use 'sandbox' for development in the test environment
+};
+
+//sendSMS.JS
+const Africastalking = require('africastalking')(credentials);
+
+
+const sms = Africastalking.SMS
 
 //create POST meal
 router.post("/menu", async (request, response) => {
@@ -29,15 +39,31 @@ router.get("/menu", async (request, response) => {
 //create POST meal
 router.post("/orders", async (request, response) => {
   const { menuItemId, userPhoneNumber } = request.body;
-  const menu = await menuModel.find({
-    menuItemId: menuItemId,
-  });
+  
 
+  
   const orders = new orderModel(request.body);
-  console.log(orders);
+  // console.log(orders);
+
+  const menu = await menuModel.findById(menuItemId).populate("order");
+
+// Use the service
+const options = {
+    to: userPhoneNumber,
+    message: `Thank you for ordering; ${menu.name}.
+     These are now in the oven and will be with you in 45 minutes.`
+}
+
 
   try {
     await orders.save();
+    sms.send(options)
+    .then( response => {
+        console.log(response);
+    })
+    .catch( error => {
+        console.log(error);
+    });
     response.status(200).send(request.body);
   } catch (error) {
     response.status(500).send(error);
